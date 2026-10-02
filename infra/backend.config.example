@@ -1,0 +1,10 @@
+# Partial backend config for `terraform init -backend-config=backend.config`.
+# Copy to backend.config (gitignored) and fill in the bucket.
+#
+# The bucket was created by the estate account bootstrap as
+# `vivavere-tfstate-<account-id>`. Only the bucket lives here, so the AWS
+# account ID stays out of this public repo. Generate it rather than typing:
+#
+#   printf 'bucket = "vivavere-tfstate-%s"\n' "$(aws sts get-caller-identity --profile vivavere --query Account --output text)" > backend.config
+
+bucket = "vivavere-tfstate-PLACEHOLDER_ACCOUNT_ID"

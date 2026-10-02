@@ -1,0 +1,13 @@
+# Operator config (bucket names, alert addresses, account-specific tokens).
+# Never committed to this public repo; the canonical copy lives in the private
+# Absence0760/infra-secrets repo under vivavere/.
+*.tfvars
+!*.tfvars.example
+
+# sops ciphertext never lands here either — secrets live in infra-secrets.
+*.sops
+*.sops.yaml
+.sops.yaml
+
+.env
+.env.*

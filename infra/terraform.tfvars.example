@@ -1,0 +1,19 @@
+# Template for this module's variables. Nothing here is secret, but a filled
+# copy is operator config, so it is never committed to this public repo: the
+# canonical copy is infra-secrets/vivavere/prod.tfvars, passed with -var-file.
+
+aws_region  = "us-east-1"
+project     = "vivavere"
+environment = "prod"
+
+# domain_name = "vivavere.com"
+
+# Required, no default — the example.com placeholder is rejected on plan.
+budget_alert_emails = ["alerts@example.com"]
+# monthly_budget_limit_usd = 10
+
+# From admin.migadu.com → Domains → vivavere.com, the part after
+# `hosted-email-verify=`. Leave unset until the domain is added in Migadu.
+# migadu_verification_token = "REPLACE"
+# dmarc_report_email        = "contact@vivavere.com"
+# dmarc_policy              = "none"   # raise to "quarantine" once reports align
