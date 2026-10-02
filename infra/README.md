@@ -61,6 +61,18 @@ Run its DNS check, then create the `contact@vivavere.com` mailbox (add aliases
 the same way). Once a few days of DMARC reports show Migadu aligning, raise
 `dmarc_policy` to `quarantine`, then `reject`.
 
+## Status
+
+Steps 1–4 done 2026-10-01: account `Vivavere` created, `vivavere.com`
+registered (renews 2027-10-01), mail DNS applied.
+
+- [x] Migadu DNS check passed
+- [x] `koa@vivavere.com` mailbox created
+- [ ] `contact@vivavere.com` mailbox — DMARC reports go here, so they're lost until it exists
+- [ ] Point `admin@`, `postmaster@`, `abuse@` at `contact@`
+- [ ] Round-trip test: Gmail → `koa@` → reply lands in Gmail's inbox, not spam
+- [ ] After a week or two of clean DMARC reports: `dmarc_policy = "quarantine"` in `infra-secrets/vivavere/prod.tfvars`, plan, apply
+
 ## Local validation (no credentials)
 
 ```
