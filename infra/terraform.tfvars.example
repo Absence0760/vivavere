@@ -1,6 +1,7 @@
 # Template for this module's variables. Nothing here is secret, but a filled
 # copy is operator config, so it is never committed to this public repo: the
-# canonical copy is infra-secrets/vivavere/prod.tfvars, passed with -var-file.
+# canonical copy is infra-secrets/vivavere/prod.tfvars.sops, sops-encrypted and
+# passed to plan through `sops exec-file` (README.md § 4. Apply).
 
 aws_region  = "us-east-1"
 project     = "vivavere"
