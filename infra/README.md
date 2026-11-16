@@ -10,7 +10,10 @@ Terraform for the Vivavere AWS account. Scope today:
 | `tests/` | Plan-only `terraform test` against mocked providers (no credentials) |
 
 Operator config is **not** in this public repo. The canonical tfvars is
-`~/github/infra-secrets/vivavere/prod.tfvars`.
+`~/github/infra-secrets/vivavere/prod.tfvars.sops`, sops-encrypted under
+`alias/vivavere-sops`. Its values (alert addresses, the Migadu token) aren't
+credentials, but they stay off GitHub and out of reach of other org members.
+Edit it with `AWS_PROFILE=vivavere sops ~/github/infra-secrets/vivavere/prod.tfvars.sops`.
 
 ## Bring-up, in order
 
@@ -42,8 +45,9 @@ deregister it on a destroy.
 
 admin.migadu.com → Domains → Add `vivavere.com` in the estate's existing
 account. Copy the token from its DNS page (the part after
-`hosted-email-verify=`) into `infra-secrets/vivavere/prod.tfvars` as
-`migadu_verification_token`. It isn't secret, since it ends up in public DNS.
+`hosted-email-verify=`) into `infra-secrets/vivavere/prod.tfvars.sops` as
+`migadu_verification_token` (`AWS_PROFILE=vivavere sops ~/github/infra-secrets/vivavere/prod.tfvars.sops`).
+It isn't secret, since it ends up in public DNS.
 
 ### 4. Apply
 
@@ -52,8 +56,13 @@ cd ~/github/vivavere/infra && printf 'bucket = "vivavere-tfstate-%s"\n' "$(aws s
 ```
 
 ```
-AWS_PROFILE=vivavere terraform plan -var-file=../../infra-secrets/vivavere/prod.tfvars -out=tfplan && AWS_PROFILE=vivavere terraform apply tfplan
+AWS_PROFILE=vivavere sops exec-file --no-fifo --filename prod.tfvars ../../infra-secrets/vivavere/prod.tfvars.sops 'terraform plan -var-file={} -out=tfplan' && AWS_PROFILE=vivavere terraform apply tfplan
 ```
+
+`sops exec-file` decrypts the tfvars to a 0600 temp file outside the repo and
+deletes it when the plan exits; a saved plan takes no var file. The saved plan
+itself holds the variable values in plaintext: `tfplan` is gitignored, and
+delete it after the apply.
 
 ### 5. Finish in Migadu
 
