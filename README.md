@@ -6,4 +6,4 @@ domain and its email (`contact@vivavere.com`, hosted on Migadu) — see
 
 This repo is **public**. Nothing secret or account-specific is committed here:
 operator config (`prod.tfvars.sops`, the bootstrap record) and any future secrets
-live in the private `Absence0760/infra-secrets` repo under `vivavere/`.
+live in the private `jaredhoward-dev/infra-secrets` repo under `vivavere/`.

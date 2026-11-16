@@ -1,6 +1,6 @@
 # Operator config (bucket names, alert addresses, account-specific tokens).
 # Never committed to this public repo; the canonical copy lives in the private
-# Absence0760/infra-secrets repo under vivavere/.
+# jaredhoward-dev/infra-secrets repo under vivavere/.
 *.tfvars
 !*.tfvars.example
 
